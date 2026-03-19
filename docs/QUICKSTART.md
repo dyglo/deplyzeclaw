@@ -1,16 +1,20 @@
-# 🚀 Quickstart Guide
+# 🚀 Quickstart Guide (WSL2 / Linux)
 
-This guide will help you set up Deplyze (OpenClaw with Gemini) in under 5 minutes.
+This guide will help you set up Deplyze (OpenClaw with Gemini) in under 5 minutes on WSL2 Ubuntu or any Linux distribution.
 
 ## Prerequisites
 
+- **WSL2 Enabled** (if on Windows)
+- **Ubuntu Distribution** installed (e.g., Ubuntu 22.04 LTS)
 - **Node.js**: v22.x (Recommended)
 - **NPM**: Latest version
 - **Git**: For cloning the repository.
 
 ## Installation
 
-### 1. Clone the Deplyze Repository
+### 1. Open Your Project in WSL2
+
+In VS Code, use the **WSL extension** to connect to your Ubuntu distribution. Then, clone the Deplyze repository:
 
 ```bash
 git clone https://github.com/dyglo/deplyzeclaw.git
@@ -19,7 +23,7 @@ cd deplyzeclaw
 
 ### 2. Run the Setup Script
 
-This script will install the OpenClaw CLI, prompt you for your Gemini API Key, and configure OpenClaw to use Gemini as its primary model. It also applies recommended security fixes.
+This script will install the OpenClaw CLI, prompt you for your Gemini API Key, and configure OpenClaw to use Gemini as its primary model. It also installs the OpenClaw daemon for better background support.
 
 ```bash
 ./scripts/setup.sh

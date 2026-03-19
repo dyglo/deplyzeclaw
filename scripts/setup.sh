@@ -1,6 +1,6 @@
 #!/bin/bash
 # Deplyze Setup Script
-# Optimized for OpenClaw + Gemini
+# Optimized for OpenClaw + Gemini (WSL2 / Linux)
 
 set -e
 
@@ -23,19 +23,21 @@ if [ -z "$GEMINI_API_KEY" ]; then
     read -p "Enter your Gemini API Key: " GEMINI_API_KEY
 fi
 
-# 4. Run OpenClaw onboarding
+# 4. Run OpenClaw onboarding with daemon installation for better background support
 echo "Configuring OpenClaw with Gemini..."
 openclaw onboard \
   --non-interactive \
   --accept-risk \
   --gemini-api-key "$GEMINI_API_KEY" \
-  --skip-daemon \
+  --install-daemon \
   --skip-channels \
   --skip-ui \
+  --skip-health \
   --workspace "$(pwd)/workspace"
 
 # 5. Apply Security Fixes
 openclaw security audit --fix
 
 echo "=== Setup Complete! ==="
-echo "You can now start the gateway with: openclaw gateway"
+echo "You can now start the gateway with: openclaw gateway run"
+echo "Or run in the background: nohup openclaw gateway > openclaw.log 2>&1 &"
