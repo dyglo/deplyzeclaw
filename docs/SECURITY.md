@@ -1,47 +1,42 @@
-# 🛡 Security Best Practices
+# Security Best Practices
 
-Deplyze (OpenClaw with Gemini) handles sensitive data and API keys. This guide outlines how to keep your deployment secure.
+Deplyze is designed to keep OpenClaw private by default and to make the Gemini key flow explicit.
 
-## 🔐 API Key Management
+## API Keys
 
-- **Never Commit Secrets**: Do not add your API keys to the repository.
-- **Use Environment Variables**: Pass keys via CLI flags or set them in your environment.
-- **Restricted Scopes**: Use API keys with the minimum necessary permissions.
+- Do not commit `GEMINI_API_KEY` or any other provider key.
+- Prefer environment variables or a secret manager over plaintext files.
+- If you store a local `.env` for OpenClaw, keep it out of version control.
+- This setup writes `GEMINI_API_KEY` to `~/.openclaw/.env` so the daemon can reload it later without manual shell exports.
 
-## 📁 File Permissions
+## File Permissions
 
-OpenClaw stores configuration and credentials in `~/.openclaw`. Ensure these files are restricted:
+OpenClaw stores state in `~/.openclaw`. Lock it down after setup:
 
 ```bash
-# Secure the config directory
 chmod 700 ~/.openclaw
-# Secure individual config files
 chmod 600 ~/.openclaw/openclaw.json
+chmod 600 ~/.openclaw/.env 2>/dev/null || true
 ```
 
-## 🔒 Gateway Security
+## Gateway Exposure
 
-- **Authentication**: The gateway uses token-based authentication. Keep your token secret.
-- **Loopback Bind**: By default, the gateway binds to `127.0.0.1`. Do not expose it publicly without a secure tunnel (e.g., Tailscale or a VPN).
-- **Reverse Proxy**: If using a reverse proxy, configure `trustedProxies` in your config.
+- Keep the Gateway bound to loopback unless you explicitly need remote access.
+- Treat the Control UI as an admin surface.
+- If you publish later, use Tailscale Serve or SSH tunneling instead of a public bind.
 
-## 🛠 Security Audit
+## Auditing
 
-Run the built-in security auditor regularly:
+Run regular checks after you change config or keys:
 
 ```bash
+openclaw doctor --yes
 openclaw security audit --deep
 ```
 
-To automatically apply safe security fixes:
+## Updates
 
-```bash
-openclaw security audit --fix
-```
-
-## 🔄 Updates
-
-Keep OpenClaw updated to receive the latest security patches:
+Keep OpenClaw current:
 
 ```bash
 openclaw update

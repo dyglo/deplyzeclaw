@@ -1,57 +1,74 @@
-# 🚀 Quickstart Guide (WSL2 / Linux)
+# Quickstart
 
-This guide will help you set up Deplyze (OpenClaw with Gemini) in under 5 minutes on WSL2 Ubuntu or any Linux distribution.
+This guide sets up OpenClaw with Gemini on WSL2 or Linux and opens the browser Control UI on `localhost`.
 
 ## Prerequisites
 
-- **WSL2 Enabled** (if on Windows)
-- **Ubuntu Distribution** installed (e.g., Ubuntu 22.04 LTS)
-- **Node.js**: v22.x (Recommended)
-- **NPM**: Latest version
-- **Git**: For cloning the repository.
+- WSL2 Ubuntu or another Linux distribution
+- Node.js 22 or newer
+- `npm`
+- A Gemini API key from Google AI Studio
 
-## Installation
-
-### 1. Open Your Project in WSL2
-
-In VS Code, use the **WSL extension** to connect to your Ubuntu distribution. Then, clone the Deplyze repository:
+## 1. Export Your Gemini Key
 
 ```bash
-git clone https://github.com/dyglo/deplyzeclaw.git
-cd deplyzeclaw
+export GEMINI_API_KEY="your-gemini-api-key"
 ```
 
-### 2. Run the Setup Script
+If you prefer a shell profile or secret manager, make sure the key is available in the environment before setup starts.
 
-This script will install the OpenClaw CLI, prompt you for your Gemini API Key, and configure OpenClaw to use Gemini as its primary model. It also installs the OpenClaw daemon for better background support.
+## 2. Run Setup
 
 ```bash
 ./scripts/setup.sh
 ```
 
-When prompted, enter your Gemini API Key. You can obtain one from [Google AI Studio](https://aistudio.google.com/).
+The setup script:
 
-### 3. Start the Gateway
+- refuses native Windows shells and Windows-mounted OpenClaw binaries
+- installs OpenClaw locally if it is missing
+- onboards a loopback Gateway with Gemini auth
+- configures the workspace, model defaults, and Gemini web grounding
+- writes the Gemini key into `~/.openclaw/.env` with restrictive permissions for the daemon
+- installs the daemon without starting the gateway
 
-Once the setup is complete, you can start the OpenClaw gateway in the background:
+## 3. Start the Gateway
 
 ```bash
-nohup openclaw gateway > openclaw.log 2>&1 &
+openclaw gateway start
 ```
 
-### 4. Verify Configuration
-
-Check if Gemini is correctly listed as the primary model and the gateway is running:
+## 4. Open the Control UI
 
 ```bash
-openclaw models list
+openclaw dashboard
+```
+
+The dashboard should open at `http://127.0.0.1:18789/`.
+
+## 5. Verify the Setup
+
+```bash
 openclaw status
+openclaw gateway status --no-probe
+openclaw config get agents.defaults.model.primary
+openclaw config get tools.web.search.provider
 ```
 
-## Next Steps
+## 6. Run the First Unattended Job
 
-- **Manage Agents**: Use `openclaw agents` to list or switch workspaces.
-- **Add Channels**: Connect Telegram or Discord via `openclaw channels add`.
-- **Check Health**: Run `openclaw doctor` to ensure everything is configured correctly.
+Use the safe overnight check as the first “sleep while it works” task:
 
-For more detailed usage, see the [Usage Guide](./USAGE_GUIDE.md).
+```bash
+scripts/overnight-check.sh
+```
+
+It writes a report to `workspace/reports/` and does not mutate the gateway or channel state.
+
+## Publishing Later
+
+If you want remote access later, keep the Gateway bound to loopback and use a secure tunnel such as Tailscale Serve or SSH port forwarding. Do not expose the Control UI directly to the public internet.
+
+## Reference
+
+- [Emergent tutorial](https://emergent.sh/tutorial/moltbot-on-emergent)

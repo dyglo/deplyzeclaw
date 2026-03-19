@@ -1,12 +1,4 @@
 {
-  "auth": {
-    "profiles": {
-      "google:default": {
-        "provider": "google",
-        "mode": "api_key"
-      }
-    }
-  },
   "agents": {
     "defaults": {
       "model": {
@@ -17,7 +9,20 @@
   },
   "gateway": {
     "port": 18789,
-    "mode": "local",
-    "bind": "loopback"
+    "bind": "loopback",
+    "auth": {
+      "mode": "token"
+    }
+  },
+  "tools": {
+    "profile": "coding",
+    "web": {
+      "search": {
+        "provider": "gemini",
+        "gemini": {
+          "model": "gemini-2.5-flash"
+        }
+      }
+    }
   }
 }

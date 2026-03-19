@@ -1,53 +1,68 @@
-# 📖 Usage Guide
+# Usage Guide
 
-Deplyze (OpenClaw with Gemini) is a powerful tool for managing autonomous AI agents. This guide covers common commands and workflows.
+This repo is optimized for a local OpenClaw Gateway with Gemini and the browser Control UI.
 
-## 🛠 Core Commands
+## Common Commands
 
-| Command | Description |
-| :--- | :--- |
-| `openclaw status` | Check overall health and connected channels. |
-| `openclaw models list` | View available and configured LLM models. |
-| `openclaw agents list` | Manage your isolated agent workspaces. |
-| `openclaw channels add` | Connect a new chat platform (Telegram, Discord, etc.). |
-| `openclaw doctor` | Perform health checks and apply quick fixes. |
-| `openclaw logs --follow` | Monitor live gateway logs. |
+| Command | Purpose |
+| --- | --- |
+| `openclaw dashboard` | Open the Control UI for the current Gateway. |
+| `openclaw status` | Check the current OpenClaw state. |
+| `openclaw gateway status --no-probe` | Inspect Gateway install and service state without starting it. |
+| `openclaw gateway start` | Start the Gateway explicitly when you are ready. |
+| `openclaw doctor --yes` | Run health checks and safe repairs. |
+| `openclaw security audit --deep` | Run the deeper security audit. |
+| `openclaw logs --follow` | Follow Gateway logs while debugging. |
 
-## 🤖 Managing Models
+## Model Management
 
-To switch your default model to another Gemini variant:
+The default model is `google/gemini-3-pro-preview`.
 
-```bash
-openclaw models set google/gemini-1.5-flash
-```
-
-To view model authentication profiles:
+To check it:
 
 ```bash
-openclaw models auth list
+openclaw config get agents.defaults.model.primary
 ```
 
-## 🔌 Connecting Channels
-
-To connect a Telegram bot:
-
-1. Run `openclaw channels add`.
-2. Select **Telegram**.
-3. Provide your bot token from @BotFather.
-
-## 📁 Workspace Management
-
-Deplyze keeps agent data, memory, and sessions in a workspace. You can switch workspaces using the `--workspace` flag or by setting the `OPENCLAW_AGENT_DIR` environment variable.
+To change it:
 
 ```bash
-# Run a command in a specific workspace
-openclaw status --workspace /path/to/my-agent
+openclaw config set agents.defaults.model.primary google/gemini-3-pro-preview
 ```
 
-## 🧪 Advanced Usage
+## Gemini Web Grounding
 
-### Running as a Service
-For persistent availability, it\'s recommended to run OpenClaw under a process manager like `systemd` or `pm2`.
+Gemini powers the web search provider too, using the same `GEMINI_API_KEY`.
 
-### Gateway Token
-The gateway is protected by a token. You can find your token in `~/.openclaw/openclaw.json`.
+To verify the provider:
+
+```bash
+openclaw config get tools.web.search.provider
+```
+
+To switch the provider or model later:
+
+```bash
+openclaw config set tools.web.search.provider gemini
+openclaw config set tools.web.search.gemini.model gemini-2.5-flash
+```
+
+## Workspace Notes
+
+The default workspace lives in `./workspace` inside this repo. Keep it local unless you intentionally want a different path.
+
+## Autonomy and Overnight Jobs
+
+The repo ships a read-only overnight check script:
+
+```bash
+scripts/overnight-check.sh
+```
+
+Use it as the first unattended job. It collects repo status, OpenClaw health, and config values, then writes a report to `workspace/reports/`.
+
+For the operating rules behind unattended work, see [Autonomy Playbook](AUTONOMY.md).
+
+## Publishing Later
+
+If you need access from another machine, prefer Tailscale Serve or an SSH tunnel. Keep the Gateway on loopback and avoid exposing the Control UI directly.

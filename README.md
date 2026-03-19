@@ -1,46 +1,43 @@
-# Deplyze 🦞
+# Deplyze
 
-**Deplyze** is a streamlined deployment and configuration framework for **OpenClaw (formerly MoltBot)**, specifically optimized for integration with **Google Gemini API**. 
+Deplyze is a local-first OpenClaw bootstrap for WSL2/Linux, tuned for Gemini and the browser Control UI.
 
-This repository provides a standardized environment for running autonomous AI agents that can manage messages, handle background tasks, and learn user preferences using the latest Gemini models.
+It sets up a loopback Gateway, keeps the dashboard private by default, and leaves the gateway start step explicit so you can publish it later on your own terms.
 
-## 🚀 Quick Start
-
-To get up and running in minutes, follow our [Quickstart Guide](./docs/QUICKSTART.md).
+## Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/dyglo/deplyzeclaw.git
-cd deplyzeclaw
-
-# Run the setup script
+export GEMINI_API_KEY="your-gemini-key"
 ./scripts/setup.sh
+openclaw gateway start
+openclaw dashboard
 ```
 
-## 🛠 Features
+## Defaults
 
-- **Gemini-First Configuration**: Pre-configured to work seamlessly with `google/gemini-3-pro-preview`.
-- **Automated Setup**: A simple script to install OpenClaw and configure Gemini.
-- **Autonomous Execution**: Runs OpenClaw as a background gateway for persistent agent availability.
-- **Security-Hardened**: Implements best practices for API key management and file permissions.
-- **CLI-Driven**: Full control via the powerful OpenClaw CLI.
+- Model: `google/gemini-3-pro-preview`
+- Gateway: loopback on port `18789`
+- Workspace: `./workspace`
+- Tool profile: `coding`
+- Web search: Gemini grounding with the same `GEMINI_API_KEY`
 
-## 📂 Project Structure
+## What You Get
 
-- `config/`: Configuration templates for OpenClaw and agent profiles.
-  - `openclaw.json.template`: A template for the OpenClaw configuration.
-- `docs/`: Detailed guides and documentation.
-  - [QUICKSTART.md](./docs/QUICKSTART.md): Get started in 5 minutes.
-  - [USAGE_GUIDE.md](./docs/USAGE_GUIDE.md): Master the OpenClaw CLI.
-  - [SECURITY.md](./docs/SECURITY.md): Best practices for keeping your agent safe.
-- `scripts/`: Helper scripts for installation and maintenance.
-  - `setup.sh`: The main setup script to install and configure OpenClaw.
+- A native Linux OpenClaw CLI
+- Non-interactive onboarding with Gemini auth
+- A daemon install for background availability
+- A dashboard-ready local setup without auto-starting the gateway
+- A safe autonomy playbook and a first overnight health-check job
 
-## 🔗 References
+## Next Steps
 
-- [Original Tutorial: MoltBot on Emergent](https://emergent.sh/tutorial/moltbot-on-emergent)
-- [OpenClaw Documentation](https://docs.openclaw.ai/)
+1. Start the gateway when you are ready: `openclaw gateway start`
+2. Open the dashboard after the gateway is running: `openclaw dashboard`
+3. If you later want remote access, use Tailscale Serve or an SSH tunnel instead of exposing the Control UI directly
+4. Run the first unattended health check when you want a safe “sleep while it works” job: `scripts/overnight-check.sh`
 
----
+## References
 
-> "Neo is your AI assistant that actually does things — manages your messages, and works in the background so you don't have to. It remembers what matters, learns your preferences, and handles tasks autonomously while you focus on what's important."
+- [Emergent tutorial](https://emergent.sh/tutorial/moltbot-on-emergent)
+- [OpenClaw documentation](https://docs.openclaw.ai/)
+- [Autonomy playbook](docs/AUTONOMY.md)
