@@ -66,3 +66,5 @@ For the operating rules behind unattended work, see [Autonomy Playbook](AUTONOMY
 ## Publishing Later
 
 If you need access from another machine, prefer Tailscale Serve or an SSH tunnel. Keep the Gateway on loopback and avoid exposing the Control UI directly.
+
+For the rollout sequence and rollback path, see [Deployment Plan](DEPLOYMENT.md).

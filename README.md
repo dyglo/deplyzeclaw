@@ -33,11 +33,13 @@ openclaw dashboard
 
 1. Start the gateway when you are ready: `openclaw gateway start`
 2. Open the dashboard after the gateway is running: `openclaw dashboard`
-3. If you later want remote access, use Tailscale Serve or an SSH tunnel instead of exposing the Control UI directly
+3. Run the pilot on the current Linux/WSL2 machine with the UI loopback-only.
 4. Run the first unattended health check when you want a safe “sleep while it works” job: `scripts/overnight-check.sh`
+5. Keep the pilot running for 3 to 7 nights before planning any external exposure.
 
 ## References
 
 - [Emergent tutorial](https://emergent.sh/tutorial/moltbot-on-emergent)
 - [OpenClaw documentation](https://docs.openclaw.ai/)
 - [Autonomy playbook](docs/AUTONOMY.md)
+- [Deployment plan](docs/DEPLOYMENT.md)

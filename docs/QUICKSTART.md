@@ -69,6 +69,8 @@ It writes a report to `workspace/reports/` and does not mutate the gateway or ch
 
 If you want remote access later, keep the Gateway bound to loopback and use a secure tunnel such as Tailscale Serve or SSH port forwarding. Do not expose the Control UI directly to the public internet.
 
+For the full pilot-to-external rollout, see [Deployment Plan](DEPLOYMENT.md).
+
 ## Reference
 
 - [Emergent tutorial](https://emergent.sh/tutorial/moltbot-on-emergent)
