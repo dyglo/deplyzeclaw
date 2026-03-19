@@ -1,6 +1,6 @@
 # Overnight Deplyze Check
 
-- Date: 2026-03-20 00:26:40 EAT
+- Date: 2026-03-20 00:37:26 EAT
 - Repo: /mnt/d/agentic/deplyzeclaw
 
 This report is read-only. It does not mutate config, channels, or the gateway.
@@ -32,9 +32,9 @@ Overview
 │ Channel         │ stable (default)                                                                                   │
 │ Update          │ pnpm · npm latest unknown                                                                          │
 │ Gateway         │ local · ws://127.0.0.1:18789 (local loopback) · unreachable (missing scope: operator.read)         │
-│ Gateway service │ systemd installed · enabled · running (pid 7177, state active)                                     │
+│ Gateway service │ systemd installed · enabled · running (pid 7857, state active)                                     │
 │ Node service    │ systemd not installed                                                                              │
-│ Agents          │ 1 · 1 bootstrap file present · sessions 1 · default main active 45m ago                            │
+│ Agents          │ 1 · 1 bootstrap file present · sessions 1 · default main active 10m ago                            │
 │ Memory          │ 0 files · 0 chunks · dirty · sources memory · plugin memory-core · vector ready · fts ready ·      │
 │                 │ cache on (0)                                                                                       │
 │ Probes          │ skipped (use --deep)                                                                               │
@@ -59,14 +59,14 @@ Channels
 ┌──────────┬─────────┬────────┬────────────────────────────────────────────────────────────────────────────────────────┐
 │ Channel  │ Enabled │ State  │ Detail                                                                                 │
 ├──────────┼─────────┼────────┼────────────────────────────────────────────────────────────────────────────────────────┤
-│ WhatsApp │ ON      │ OK     │ linked · +256785735108 · auth 44m ago · accounts 1                                     │
+│ WhatsApp │ ON      │ OK     │ linked · +256785735108 · auth 55m ago · accounts 1                                     │
 └──────────┴─────────┴────────┴────────────────────────────────────────────────────────────────────────────────────────┘
 
 Sessions
 ┌───────────────────────────────────────────┬────────┬─────────┬──────────────────────┬────────────────────────────────┐
 │ Key                                       │ Kind   │ Age     │ Model                │ Tokens                         │
 ├───────────────────────────────────────────┼────────┼─────────┼──────────────────────┼────────────────────────────────┤
-│ agent:main:main                           │ direct │ 45m ago │ gemini-3-pro-preview │ 46k/1000k (5%) · 🗄️ 45% cached │
+│ agent:main:main                           │ direct │ 10m ago │ gemini-3-pro-preview │ 21k/1000k (2%) · 🗄️ 38% cached │
 └───────────────────────────────────────────┴────────┴─────────┴──────────────────────┴────────────────────────────────┘
 
 FAQ: https://docs.openclaw.ai/faq
@@ -104,7 +104,7 @@ Probe target: ws://127.0.0.1:18789
 Dashboard: http://127.0.0.1:18789/
 Probe note: Loopback-only gateway; only local clients can connect.
 
-Runtime: running (pid 7177, state active, sub running, last exit 0, reason 0)
+Runtime: running (pid 7857, state active, sub running, last exit 0, reason 0)
 RPC probe: ok
 
 Listening: 127.0.0.1:18789
@@ -126,7 +126,7 @@ Troubleshooting: https://docs.openclaw.ai/troubleshooting
 ├──────────────────────────────────────────────────────────────────────────╯
 Checking channel status (probe)…
 Gateway reachable.
-- WhatsApp default: enabled, configured, linked, stopped, disconnected, dm:pairing, error:{"error":{"data":{"code":"ETIMEDOUT"},"isBoom":true,"isServer":false,"output":{"statusCode":408,"payload":{"statusCode":408,"error":"Request Time-out","message":"WebSocket Error ()"},"headers":{}}},"date":"2026-03-19T21:26:22.107Z"}
+- WhatsApp default: enabled, configured, linked, stopped, disconnected, dm:pairing, error:{"error":{"data":{"code":"ETIMEDOUT"},"isBoom":true,"isServer":false,"output":{"statusCode":408,"payload":{"statusCode":408,"error":"Request Time-out","message":"WebSocket Error ()"},"headers":{}}},"date":"2026-03-19T21:37:38.058Z"}
 
 Tip: https://docs.openclaw.ai/cli#status adds gateway health probes to status output (requires a reachable gateway).
 ```
