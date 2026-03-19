@@ -1,6 +1,6 @@
 # 📖 Usage Guide
 
-OpenClaw is a powerful tool for managing autonomous AI agents. This guide covers common commands and workflows.
+Deplyze (OpenClaw with Gemini) is a powerful tool for managing autonomous AI agents. This guide covers common commands and workflows.
 
 ## 🛠 Core Commands
 
@@ -37,7 +37,7 @@ To connect a Telegram bot:
 
 ## 📁 Workspace Management
 
-OpenClaw keeps agent data, memory, and sessions in a workspace. You can switch workspaces using the `--workspace` flag or by setting the `OPENCLAW_AGENT_DIR` environment variable.
+Deplyze keeps agent data, memory, and sessions in a workspace. You can switch workspaces using the `--workspace` flag or by setting the `OPENCLAW_AGENT_DIR` environment variable.
 
 ```bash
 # Run a command in a specific workspace
@@ -47,7 +47,7 @@ openclaw status --workspace /path/to/my-agent
 ## 🧪 Advanced Usage
 
 ### Running as a Service
-For persistent availability, it's recommended to run OpenClaw under a process manager like `systemd` or `pm2`.
+For persistent availability, it\'s recommended to run OpenClaw under a process manager like `systemd` or `pm2`.
 
 ### Gateway Token
 The gateway is protected by a token. You can find your token in `~/.openclaw/openclaw.json`.

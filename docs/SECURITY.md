@@ -1,6 +1,6 @@
 # 🛡 Security Best Practices
 
-OpenClaw handles sensitive data and API keys. This guide outlines how to keep your deployment secure.
+Deplyze (OpenClaw with Gemini) handles sensitive data and API keys. This guide outlines how to keep your deployment secure.
 
 ## 🔐 API Key Management
 
