@@ -92,6 +92,18 @@ fi
 
 export GEMINI_API_KEY
 mkdir -p "$WORKSPACE_DIR"
+mkdir -p "$WORKSPACE_DIR/scripts"
+
+cat > "$WORKSPACE_DIR/scripts/overnight-check.sh" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+exec "$ROOT_DIR/scripts/overnight-check.sh" "$@"
+EOF
+chmod 755 "$WORKSPACE_DIR/scripts/overnight-check.sh"
 
 if OPENCLAW_BIN="$(resolve_openclaw)"; then
   :
@@ -150,6 +162,7 @@ info "Setting up local Gateway state in: $WORKSPACE_DIR"
 "$OPENCLAW_BIN" config set gateway.bind loopback
 "$OPENCLAW_BIN" config set gateway.port "$OPENCLAW_PORT"
 "$OPENCLAW_BIN" config set gateway.auth.mode token
+"$OPENCLAW_BIN" config set channels.whatsapp.groupPolicy open
 "$OPENCLAW_BIN" config set tools.web.search.provider gemini
 "$OPENCLAW_BIN" config set tools.web.search.gemini.model gemini-2.5-flash
 
