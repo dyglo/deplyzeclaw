@@ -13,8 +13,8 @@ if [ -z "$GEMINI_API_KEY" ]; then
     read -p "Enter your Gemini API Key: " GEMINI_API_KEY
 fi
 echo "Configuring OpenClaw with Gemini..."
-openclaw onboard --non-interactive --accept-risk --gemini-api-key "$GEMINI_API_KEY" --install-daemon --skip-channels --skip-ui --skip-health --workspace "$(pwd)/workspace"
-openclaw security audit --fix
+$(npm config get prefix)/bin/openclaw onboard --non-interactive --accept-risk --gemini-api-key "$GEMINI_API_KEY" --install-daemon --skip-channels --skip-ui --skip-health --workspace "$(pwd)/workspace"
+$(npm config get prefix)/bin/openclaw security audit --fix
 echo "=== Setup Complete! ==="
-echo "You can now start the gateway with: openclaw gateway run"
-echo "Or run in the background: nohup openclaw gateway > openclaw.log 2>&1 &"
+echo "You can now start the gateway with: $(npm config get prefix)/bin/openclaw gateway run"
+echo "Or run in the background: nohup $(npm config get prefix)/bin/openclaw gateway > openclaw.log 2>&1 &"
