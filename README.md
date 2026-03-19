@@ -1,4 +1,4 @@
-# Deplyze
+# DeplyzeClaw 🦞
 
 Deplyze is a local-first OpenClaw bootstrap for WSL2/Linux, tuned for Gemini and the browser Control UI.
 
